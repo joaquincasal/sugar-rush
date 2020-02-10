@@ -22,7 +22,8 @@ const javascript = {
 };
 
 /*
-  This is our postCSS loader which gets fed into the next loader. I'm setting it up in it's own variable because its a didgeridog
+  This is our postCSS loader which gets fed into the next loader.
+  I'm setting it up in it's own variable because its a didgeridog
 */
 
 const postcss = {
@@ -37,7 +38,8 @@ const styles = {
   test: /\.(scss)$/,
   // here we pass the options as query params b/c it's short.
   // remember above we used an object for each loader instead of just a string?
-  // We don't just pass an array of loaders, we run them through the extract plugin so they can be outputted to their own .css file
+  // We don't just pass an array of loaders,
+  // we run them through the extract plugin so they can be outputted to their own .css file
   use: ExtractTextPlugin.extract(['css-loader?sourceMap', postcss, 'sass-loader?sourceMap'])
 };
 
@@ -64,7 +66,9 @@ const config = {
     filename: '[name].bundle.js'
   },
 
-  // remember we said webpack sees everthing as modules and how different loaders are responsible for different file types? Here is is where we implement them. Pass it the rules for our JS and our styles
+  // remember we said webpack sees everthing as modules
+  // and how different loaders are responsible for different file types?
+  // Here is is where we implement them. Pass it the rules for our JS and our styles
   module: {
     rules: [javascript, styles]
   },

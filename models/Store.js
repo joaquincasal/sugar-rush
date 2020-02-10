@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
+
 mongoose.Promise = global.Promise;
-const slug = require('slugs')
+const slug = require('slugs');
 
 const storeSchema = new mongoose.Schema({
-  name: {type: String, trim: true, required: 'Enter a store name'},
+  name: { type: String, trim: true, required: 'Enter a store name' },
   slug: String,
-  description: {type: String, trim: true},
+  description: { type: String, trim: true },
   tags: [String]
 });
 
-storeSchema.pre('save', function(next) {
+storeSchema.pre('save', function (next) {
   if (!this.isModified('name')) {
     next();
     return;
