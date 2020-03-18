@@ -13,7 +13,8 @@ const storeSchema = new mongoose.Schema({
     type: { type: String, default: 'Point' },
     coordinates: [{ type: Number, required: 'Coordinates are mandatory' }],
     address: { type: String, required: 'Address is mandatory' }
-  }
+  },
+  photo: String
 });
 
 storeSchema.pre('save', function (next) {
