@@ -10,7 +10,9 @@ const userSchema = new Schema({
   email: {
     type: String, unique: true, lowercase: true, trim: true, validate: [validator.isEmail, 'Invalid email address'], required: 'Enter an email address'
   },
-  name: { type: String, required: 'Enter a name', trim: true }
+  name: { type: String, required: 'Enter a name', trim: true },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
 userSchema.virtual('gravatar').get(function () {
