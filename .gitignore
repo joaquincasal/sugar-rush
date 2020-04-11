@@ -60,5 +60,5 @@ typings/
 # next.js build output
 .next
 
-public/dist/App.bundle.js.map
 public/uploads
+public/dist
