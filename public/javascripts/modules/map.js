@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 import axios from 'axios';
 import { $ } from './bling';
 
@@ -8,19 +10,19 @@ const mapOptions = {
 
 function loadPlaces(map, lat = 43.2, lng = -79.8) {
   axios.get(`/api/stores/near?lat=${lat}&lng=${lng}`)
-    .then(res => {
+    .then((res) => {
       const places = res.data;
       if (!places.length) {
-        alert('No places found :(');
+        alert('No places found :('); // eslint-disable-line no-alert
         return;
       }
 
       const bounds = new google.maps.LatLngBounds();
       const infoWindow = new google.maps.InfoWindow();
 
-      const markers = places.map(place => {
-        const [lng, lat] = place.location.coordinates;
-        const position = { lat, lng }
+      const markers = places.map((place) => {
+        const [placeLng, placeLat] = place.location.coordinates;
+        const position = { lat: placeLat, lng: placeLng };
         bounds.extend(position);
         const marker = new google.maps.Marker({ map, position });
         marker.place = place;
@@ -30,7 +32,7 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
       map.setCenter(bounds.getCenter());
       map.fitBounds(bounds);
 
-      markers.forEach(marker => marker.addListener('click', function() {
+      markers.forEach(marker => marker.addListener('click', function () {
         const html = `
           <div class="popup">
             <a href="/store/${this.place.slug}">
@@ -42,11 +44,7 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
         infoWindow.setContent(html);
         infoWindow.open(map, marker);
       }));
-
-    })
-    .catch(err => {
-      console.error(err);
-    })
+    });
 }
 
 function makeMap(mapDiv) {

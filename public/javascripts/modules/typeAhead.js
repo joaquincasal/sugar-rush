@@ -2,13 +2,11 @@ import axios from 'axios';
 import dompurify from 'dompurify';
 
 function searchResultHTML(stores) {
-  return stores.map(store => {
-    return dompurify.sanitize(`
+  return stores.map(store => dompurify.sanitize(`
       <a href="/store/${store.slug}" class="search__result">
         <strong>${store.name}</strong>
       </a>
-    `);
-  }).join('');
+    `)).join('');
 }
 
 function typeAhead(search) {
@@ -16,7 +14,7 @@ function typeAhead(search) {
   const searchInput = search.querySelector('input[name="search"]');
   const searchResults = search.querySelector('.search__results');
 
-  searchInput.on('input', function() {
+  searchInput.on('input', function () {
     if (!this.value) {
       searchResults.style.display = 'none';
       return;
@@ -24,7 +22,7 @@ function typeAhead(search) {
     searchResults.style.display = 'block';
     axios
       .get(`/api/search?q=${this.value}`)
-      .then(res => {
+      .then((res) => {
         if (res.data.length) {
           searchResults.innerHTML = searchResultHTML(res.data);
           return;
@@ -34,9 +32,6 @@ function typeAhead(search) {
             No results found
           </div>
         `);
-      })
-      .catch(err => {
-        console.error(err);
       });
   });
 
@@ -49,7 +44,9 @@ function typeAhead(search) {
     if (e.keyCode === 40) {
       next = current && current.nextElementSibling ? current.nextElementSibling : items[0];
     } else if (e.keyCode === 38) {
-      next = current && current.previousElementSibling ? current.previousElementSibling : items[items.length - 1];
+      next = current && current.previousElementSibling
+        ? current.previousElementSibling
+        : items[items.length - 1];
     } else {
       window.location = current.href;
       return;
