@@ -33,6 +33,7 @@ router.get('/tags/:tag', catchErrors(storeController.getStoresByTag));
 router.get('/map', storeController.map);
 router.get('/hearts', authController.isLoggedIn, catchErrors(storeController.getHearts));
 router.post('/reviews/:id', authController.isLoggedIn, catchErrors(reviewController.addReview));
+router.get('/top', catchErrors(storeController.getTopStores));
 
 router.get('/login', userController.loginForm);
 router.post('/login', authController.login);
