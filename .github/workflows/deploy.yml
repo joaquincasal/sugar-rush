@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Deploy
-      - uses: AkhileshNS/heroku-deploy@v3.0.3
+        uses: AkhileshNS/heroku-deploy@v3.0.3
         with:
           heroku_api_key: ${{ secrets.HEROKU_KEY }}
           heroku_email: ${{ secrets.HEROKU_MAIL }}
