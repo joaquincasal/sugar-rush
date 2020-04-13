@@ -22,7 +22,7 @@ exports.send = async (options) => {
   const html = genereateHTML(options.filename, options);
   const text = htmlToText.fromString(html);
   const mailOptions = {
-    from: 'Sugar Rush <noreply@sugarrush.com>',
+    from: process.env.MAIL_FROM,
     to: options.user.email,
     subject: options.subject,
     html,
