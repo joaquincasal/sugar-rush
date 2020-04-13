@@ -1,0 +1,31 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npm install
+      - run: npm run lint
+        env:
+          CI: true
+
+  deploy:
+    name: deploy
+    needs: lint
+    runs-on: ubuntu-latest
+    if: {{ github.ref == 'ref/head/master' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: AkhileshNS/heroku-deploy@v3.0.3
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_KEY }}
+          heroku_email: ${{ secrets.HEROKU_MAIL }}
+          heroku_app_name: ${{ secrets.HEROKU_APP }}
